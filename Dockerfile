@@ -20,4 +20,4 @@ EXPOSE 3000
 EXPOSE 5000
 
 # jalankan server
-CMD ["npm", "start"]
+CMD ["npm", "start", "dev"]
