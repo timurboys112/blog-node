@@ -16,5 +16,8 @@ COPY . .
 # port yang dipakai express
 EXPOSE 3000
 
+#port yang dipakai
+EXPOSE 5000
+
 # jalankan server
 CMD ["npm", "start"]
