@@ -12,6 +12,8 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/blog
 
   mongo:
     image: mongo:7
