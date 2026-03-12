@@ -1,40 +1,24 @@
 pipeline {
     agent any
 
-    environment { -
-    }
-
     stages {
 
         stage('Clone Repo') {
             steps {
-                git url: 'https://github.com/timurboys112/blog-node.git',
-                    branch: 'main'
-            }
-        }
-
-        stage('Inject ENV') {
-            steps {
-                withCredentials([file(credentialsId: 'env-file', variable: 'ENVFILE')]) {
-                    sh '''
-                    rm -f .env
-                    cp "$ENVFILE" .env
-                    chmod 600 .env
-                    '''
-                }
+                git url: 'https://github.com/timurboys112/blog-node.git', branch: 'main'
             }
         }
 
         stage('Build Docker') {
             steps {
-                sh 'docker compose build'
+                bat 'docker compose build'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh '''
-                docker compose down || true
+                bat '''
+                docker compose down
                 docker compose up -d --build
                 docker ps
                 '''
