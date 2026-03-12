@@ -1,11 +1,26 @@
 pipeline {
     agent any
 
+    environment {
+    }
+
     stages {
 
         stage('Clone Repo') {
             steps {
-                git url: 'https://github.com/timurboys112/blog-node.git', branch: 'main'
+                git url: 'https://github.com/timurboys112/blog-node.git',
+                    branch: 'main'
+            }
+        }
+
+        stage('Inject ENV') {
+            steps {
+                withCredentials([file(credentialsId: 'env-file', variable: 'ENVFILE')]) {
+                    bat '''
+                    del .env 2>nul
+                    copy "%ENVFILE%" .env
+                    '''
+                }
             }
         }
 
